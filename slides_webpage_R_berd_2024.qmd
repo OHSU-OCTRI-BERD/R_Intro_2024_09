@@ -2264,8 +2264,8 @@ From Garrett Grolemund's Prologue of his book *Hands-On Programming with R*[^1]:
     -   slides: [bit.ly/berd_intro_part2](http://bit.ly/berd_intro_part2)
     -   pdf: [bit.ly/berd_intro_part2_pdf](http://bit.ly/berd_intro_part2_pdf) - [recording of the presentation](https://echo360.org/media/04d4ec82-35a6-43b2-8463-2db51f936c6d/public)
 -   **Reproducible Reports with R Markdown** 2019/09/25
-    -   slides: [bit.ly/berd_rmd](http://bit.ly/berd_rmd)
-    -   pdf: [bit.ly/berd_rmd_pdf](http://bit.ly/berd_rmd_pdf) - [recording of the presentation](https://echo360.org/media/b082e803-0677-445f-9688-f96b9c36dc93/public)
+    -   slides: [bit.ly/berd_rmd_2019](http://bit.ly/berd_rmd_2019)
+    -   pdf: [bit.ly/berd_rmd_pdf_2019](http://bit.ly/berd_rmd_pdf_2019) - [recording of the presentation](https://echo360.org/media/b082e803-0677-445f-9688-f96b9c36dc93/public)
     -   Note: most of this applies to Quarto as well, but there are some differences between Quarto and R Markdown.
 
 ## Quarto Resources
