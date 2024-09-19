@@ -37,13 +37,15 @@ editor_options:
     -   Use this to post questions!
     -   This has all the links in it
 
-2.  Download folder `berd_r_intro_2024_09` from Google drive using link <https://bit.ly/berd_intro_2024_files>
+2.  Download zipped folder of files using link <https://bit.ly/berd_intro_2024_files>
 
     -   **Do you have a PC? Need to right click .zip file and select EXTRACT ALL**
 
     -   Do you have a Mac? Just double click .zip file and it will open
 
-3.  Open the slides file (html) in a web browser: `slides_R_berd_2024.html`
+    -   These files are hosted on github: <https://github.com/OHSU-OCTRI-BERD/R_Intro_2024_09>
+
+3.  Slides are here: <https://bit.ly/berd-r-intro2024-slides> or you can open the slides file (html) in a web browser: `slides_R_berd_2024.html`
 
 4.  [Open RStudio by double-clicking on the file]{style="color:darkorange"} `berd_r_intro_2024_09.Rproj`
 
