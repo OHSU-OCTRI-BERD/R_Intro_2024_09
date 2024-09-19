@@ -5,22 +5,19 @@ institute: "OHSU OCTRI-BERD"
 author: "Jessica Minnier, Meike Niederhausen"
 date: "09/19/2024"
 format: 
-  revealjs:
-      incremental: false
-      scrollable: true
-      chalkboard: true
-      theme: [css/sky_modified_smaller_font.scss]
-      width:  1100 #default 1050
-      height: 825  #default 700
-      slide-number: true
-      html-math-method: mathjax
-  # html:
-  #   link-external-newwindow: true
-  #   toc: true
+  html:
+    link-external-newwindow: true
+    toc: true
+    toc_float:
+      collapsed: false
+    number-sections: true
+    number-depth: 4
+    theme: lumen
+    self-contained: true
+    html-math-method: mathjax
 execute:
   echo: true
-  freeze: auto  # re-render only when source changes
-# editor: visual
+editor: visual
 editor_options: 
   chunk_output_type: inline
 ---
@@ -65,8 +62,6 @@ library(janitor)
 library(naniar)
 library(writexl)
 
-# set ggplot theme for slides 
-theme_set(theme_bw(base_size = 22))
 ```
 
 
@@ -82,7 +77,7 @@ theme_set(theme_bw(base_size = 22))
     -   **Do you have a PC? Need to right click .zip file and select EXTRACT ALL**
 
     -   Do you have a Mac? Just double click .zip file and it will open
-    
+
     -   These files are hosted on github <https://github.com/OHSU-OCTRI-BERD/R_Intro_2024_09>
 
 3.  Open the slides file (html) in a web browser: `slides_R_berd_2024.html` or use the link <https://bit.ly/berd_intro_2024_slides>
@@ -95,33 +90,30 @@ theme_set(theme_bw(base_size = 22))
 ::: {.column width="50%"}
 ### Part 1: 09/19/2024
 
-* Intro to R & RStudio
-* Quarto documents & code chunks
-* R packages
-* Data: loading, viewing
-* Summarizing data
-    *   Quantitative 
-    *   Categorical
-* Data visualizations
-    *   Quantitative: histograms, boxplots, scatterplots
-    *   Categorical: barplots
-* Missing data summary
-
+-   Intro to R & RStudio
+-   Quarto documents & code chunks
+-   R packages
+-   Data: loading, viewing
+-   Summarizing data
+    -   Quantitative
+    -   Categorical
+-   Data visualizations
+    -   Quantitative: histograms, boxplots, scatterplots
+    -   Categorical: barplots
+-   Missing data summary
 :::
 
 ::: {.column width="50%"}
-
 ### Part 2: 10/03/2024
 
-* Data wrangling
-    *   Sorting data
-    *   Subsetting data (rows, columns)
-    *   Creating new variables in a dataset
-    *   Factor level variables
-*   Some more data viz (stratifying figures)
-*   Replacing missing values with another value
-*   Resources
-
+-   Data wrangling
+    -   Sorting data
+    -   Subsetting data (rows, columns)
+    -   Creating new variables in a dataset
+    -   Factor level variables
+-   Some more data viz (stratifying figures)
+-   Replacing missing values with another value
+-   Resources
 :::
 :::
 
@@ -161,8 +153,7 @@ R is a programming language
 :::
 
 ::: {.column width="50%"}
-RStudio is an integrated development environment (IDE)
-= an interface to use R (with perks!)
+RStudio is an integrated development environment (IDE) = an interface to use R (with perks!)
 :::
 :::
 
@@ -449,9 +440,7 @@ install.packages("gtsummary")
 ```
 
 
-
-- It is __VERY IMPORTANT__ that you install these packages in order to run the code for the workshop!
-
+-   It is **VERY IMPORTANT** that you install these packages in order to run the code for the workshop!
 
 ## Load packages with `library()` command
 
@@ -505,7 +494,7 @@ library(readxl)  # part of tidyverse, but not the tidyverse core
 
 ## Dataset example (toy data)
 
-&nbsp;
+ 
 
 ::: {style="font-size: 110%;"}
 -   [**Use Excel to open the dataset `toy_data.xlsx` that is located in the data folder.**]{style="color:darkorange"}
@@ -522,55 +511,49 @@ library(readxl)  # part of tidyverse, but not the tidyverse core
 
 ## Import data into R
 
-&nbsp;
+ 
 
 ::: {style="font-size: 110%;"}
 -   We can import data from many file types, including .csv, .txt., .xlsx, plus SAS or Stata files
 
 -   Once imported, R typically stores data as [**data frames**]{style="color:darkorange"}, or [**tibbles**]{style="color:darkorange"} if using the `tidyverse` package.
+
     -   For our purposes, these are essentially the same, and we will tend to use the terms interchangeably.
     -   These are examples of what we call [**object types**]{style="color:darkorange"} in R.
 :::
 
-
-
-## Load data from an .xlsx (Excel) file: __point & click option__
+## Load data from an .xlsx (Excel) file: **point & click option**
 
 **SAVE THE CODE after using the point & click option**
 
 ::: columns
 ::: {.column width="40%"}
-
--   In RStudio's Files window, open the `data` folder and 
+-   In RStudio's Files window, open the `data` folder and
     -   then click on the dataset `toy_data.xlsx`.
--   Select the `Import Dataset...` option, 
-    -   Import Options: Type in `NA` in the "NA:" box, and 
+-   Select the `Import Dataset...` option,
+    -   Import Options: Type in `NA` in the "NA:" box, and
     -   then click on the `Import` button on the bottom right of the pop-up window.
 :::
 
 ::: {.column width="60%"}
-
-![](image/load_data_point_click.png){fig-align="center"}
-![](image/load_data_point_click_NA.png){fig-align="center"}
+![](image/load_data_point_click.png){fig-align="center"} ![](image/load_data_point_click_NA.png){fig-align="center"}
 :::
 
--   __Copy the code from the console used to load the file into your script__ (omitting the + sign): 
+-   **Copy the code from the console used to load the file into your script** (omitting the + sign):
 
 
 ```{r}
 toy_data <- read_excel("data/toy_data.xlsx", na = "NA")
 ```
 
-
 :::
 
-
-## Load data from an .xlsx (Excel) file: __code option__
+## Load data from an .xlsx (Excel) file: **code option**
 
 -   The point and click option used the `read_excel` command from the `readxl` package to load the xlsx file.
 -   If comfortable with coding and the data, we can skip the point and click and directly write the code ourselves.
 -   When loading the dataset, we need to specify where the xlsx file is located, which in this case is in the folder called `data`.
--   No matter which option we use, the [__code to load the data MUST be in your qmd__]{style="color:darkorange"}.
+-   No matter which option we use, the [**code to load the data MUST be in your qmd**]{style="color:darkorange"}.
 
 
 ```{r}
@@ -592,13 +575,10 @@ toy_data <- read_excel("data/toy_data.xlsx", na = "NA")
 -   Run the `View` command below within RStudio.
 
 
-
 ```{r}
 #| eval: FALSE
 View(toy_data)
 ```
-
-
 
 :::
 
@@ -607,13 +587,12 @@ View(toy_data)
 -   Note that the code chunk in the qmd file specifies `#| eval: FALSE` so that this code is not run while rendering the qmd file.
 :::
 :::
+
 ![](image/View_toy_data.png){fig-align="center"}
-
-
 
 ## What are the variable "types"?
 
-&nbsp;
+ 
 
 | R variable type  | Description                                          |
 |------------------|------------------------------------------------------|
@@ -622,7 +601,7 @@ View(toy_data)
 | `fct`: factor    | categorical variables stored with levels (groups)    |
 | `lgl`: logical   | boolean (TRUE, FALSE)                                |
 
-&nbsp;
+ 
 
 
 ```{r}
@@ -654,32 +633,29 @@ names(toy_data)
 ```
 
 
-
 # The Youth Risk Behavior Surveillance System (YRBSS)
 
-Data from the CDC's [Youth Risk Behavior Surveillance System (YRBSS) ](https://www.cdc.gov/healthyyouth/data/yrbs/index.htm)
+Data from the CDC's [Youth Risk Behavior Surveillance System (YRBSS)](https://www.cdc.gov/healthyyouth/data/yrbs/index.htm)
 
-- complex survey data
-- national school-based survey 
-    + conducted by CDC and state, territorial, and local education and health agencies and tribal governments
-- monitors six categories of health-related behaviors 
-    + that contribute to the leading causes of death and disability among youth and adults 
-    + including alcohol & drug use, unhealthy & dangerous behaviors, sexuality, and physical activity
-    + see [Questionnaires](https://www.cdc.gov/healthyyouth/data/yrbs/questionnaires.htm)
-- the data in `yrbss_demo.xlsx` are a subset of data in the R package [`yrbss`](https://github.com/hadley/yrbss), which includes YRBSS from 1991-2013
-
+-   complex survey data
+-   national school-based survey
+    -   conducted by CDC and state, territorial, and local education and health agencies and tribal governments
+-   monitors six categories of health-related behaviors
+    -   that contribute to the leading causes of death and disability among youth and adults
+    -   including alcohol & drug use, unhealthy & dangerous behaviors, sexuality, and physical activity
+    -   see [Questionnaires](https://www.cdc.gov/healthyyouth/data/yrbs/questionnaires.htm)
+-   the data in `yrbss_demo.xlsx` are a subset of data in the R package [`yrbss`](https://github.com/hadley/yrbss), which includes YRBSS from 1991-2013
 
 # Practice time! (part 1)
 
 Use R code to answer the following questions.
 
-1. Open the Excel file `yrbss_demo.xlsx` in the *data* *folder* to familiarize yourself with it.
+1.  Open the Excel file `yrbss_demo.xlsx` in the *data* *folder* to familiarize yourself with it.
 2.  Load the dataset `yrbss_demo.xlsx`. Make sure the name of the loaded data is `yrbss_data`.
 3.  What are the column names?
-4.  How many rows and columns are in `yrbss_data`? 
-5.  Which variables are numeric (quantitative)? 
-6.  Which variables are character? 
-
+4.  How many rows and columns are in `yrbss_data`?
+5.  Which variables are numeric (quantitative)?
+6.  Which variables are character?
 
 # Load the YRBSS data
 
@@ -723,8 +699,6 @@ First 20 rows shown below:
 
 ![](image/View_yrbss_data.png){fig-align="center"}
 
-
-
 # Summarizing data and `%>%`
 
 -   Often we want to summarize columns of data
@@ -738,8 +712,6 @@ The [pipe is read "and then"]{style="color:darkorange"} and tells R the next fun
 yrbss_data %>%
   head() # shows top rows
 ```
-
-
 
 
 # Summarizing quantitative data
@@ -761,12 +733,11 @@ yrbss_data %>%
 -   The `type` options are
     -   `type = c("full", "common", "robust", "five_number", "mean_sd", "mean_se", "mean_ci", "median_iqr", "median_mad", "quantile", "mean", "median", "min", "max")`
 
-
 ## Stratified summaries (and more on `%>%`)
 
 -   Now let's **summarize the BMI and weight variables by a strata subgroup**.
 -   We do this with the `group_by()` function
--   Notice that we now have two `%>%`: 
+-   Notice that we now have two `%>%`:
     -   `data %>% group_by(...) %>% get_summary_stats(...)`
     -   With the pipe symbol `%>%` we can **string together many commands** in the order we want them applied. Example:
         -   first tell R what dataset to use,
@@ -801,7 +772,6 @@ yrbss_data %>%
 ```
 
 
-
 ## Prettier table of output
 
 -   Below we add on `gt()` at the end to make the table prettier.
@@ -822,7 +792,7 @@ yrbss_data %>%
 
 ## Advanced examples using `summarize` function
 
-&nbsp;
+ 
 
 Below are links to data summary examples in our previous OCTRI-BERD workshop on *Introduction to R and RStudio for Exploratory Data Analysis: Part 2* using the function `summarize()`:
 
@@ -830,7 +800,6 @@ Below are links to data summary examples in our previous OCTRI-BERD workshop on 
 -   All slides:
     -   html slides: [bit.ly/berd_intro_part2](http://bit.ly/berd_intro_part2)
     -   pdf slides: [bit.ly/berd_intro_part2_pdf](http://bit.ly/berd_intro_part2_pdf)
-
 
 # Summarizing categorical data: frequency tables
 
@@ -930,16 +899,14 @@ yrbss_data %>%
 
 *Make sure to scroll down in the output box above to see all of the output*
 
-
 ## More `tabyl` and `adorn_` options
 
-&nbsp;
-
+ 
 
 ::: {style="font-size: 110%;"}
-See the [`tabyl`s vignette](https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html) for more `tabyl` and `adorn_` options: 
+See the [`tabyl`s vignette](https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html) for more `tabyl` and `adorn_` options:
 
-[https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html](https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html)
+<https://cran.r-project.org/web/packages/janitor/vignettes/tabyls.html>
 :::
 
 # Practice time! (part 2)
@@ -947,10 +914,7 @@ See the [`tabyl`s vignette](https://cran.r-project.org/web/packages/janitor/vign
 1.  Create a contingency table for `race4` and `race7`, with both percentages and counts. What is the difference between these two variables?
 2.  Create a contingency table for `race4` and `race7`, with both percentages and counts, stratified by `grade`.
 3.  Calculate the minimum, median, and maximum BMI and weights of participants in the YRBSS data.
-2.  Calculate the minimum, median, and maximum BMI and weights of the participants in the YRBSS data, now stratified by age.
-
-
-
+4.  Calculate the minimum, median, and maximum BMI and weights of the participants in the YRBSS data, now stratified by age.
 
 # Data visualization
 
@@ -984,8 +948,6 @@ ggplot(data = yrbss_data,    # specify the dataset
 ```
 
 
-
-
 ## Boxplots
 
 -   Recall that the whiskers' ends are the minimum and maximum values
@@ -1010,8 +972,7 @@ ggplot(data = yrbss_data,   # dataset
 :::
 
 ::: {.column width="50%"}
-**Weight**:
-vertical boxplot (specify `y = ...`)
+**Weight**: vertical boxplot (specify `y = ...`)
 
 
 ```{r}
@@ -1026,8 +987,6 @@ ggplot(data = yrbss_data,
 
 :::
 :::
-
-
 
 ## Stratified boxplots (plus axis labels & title!)
 
@@ -1049,16 +1008,13 @@ ggplot(data = yrbss_data,
 ```
 
 
-
-
 ## Add color using `fill`
 
-- Also remove the `NA` category with `drop_na()` (we will talk about this in later slides)
-- What's the difference in use of `fill=` here?
+-   Also remove the `NA` category with `drop_na()` (we will talk about this in later slides)
+-   What's the difference in use of `fill=` here?
 
 ::: columns
 ::: {.column width="50%"}
-
 
 ```{r}
 #| fig.height: 5
@@ -1075,10 +1031,9 @@ ggplot(
   theme(legend.position="none") 
 ```
 
+:::
 
-::: 
 ::: {.column width="50%"}
-
 
 ```{r}
 #| fig.height: 5
@@ -1093,9 +1048,8 @@ ggplot(
   geom_boxplot() 
 ```
 
-
-::: 
-::: 
+:::
+:::
 
 ## Scatterplots
 
@@ -1108,9 +1062,6 @@ ggplot(data = yrbss_data, # specify the dataset
            )) +  
   geom_point()    # type of plot     
 ```
-
-
-
 
 
 ## Scatterplot with color-coded dots
@@ -1127,29 +1078,25 @@ ggplot(data = yrbss_data,
 ```
 
 
-
 ## Color vs. fill vs. alpha
 
-&nbsp;
+ 
 
 ::: {style="font-size: 110%;"}
-* `color` (or `colour`) is used for lines and outlines
-* `fill` is used for interiors
-*  Note: geom_point() shape default is a point with only an outline and no interior -> *we used color and not fill*
+-   `color` (or `colour`) is used for lines and outlines
+-   `fill` is used for interiors
+-   Note: geom_point() shape default is a point with only an outline and no interior -\> *we used color and not fill*
 
-&nbsp;
+ 
 
-* `alpha` specifies the opacity / transparency
-    *   Values range from 0 to 1
-    *   lower alphas are more transparent
-    
+-   `alpha` specifies the opacity / transparency
+    -   Values range from 0 to 1
+    -   lower alphas are more transparent
 
-&nbsp;
+ 
 
-* See ggplot webpage [Colour related aesthetics: colour, fill, and alpha](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html) for more information
-
+-   See ggplot webpage [Colour related aesthetics: colour, fill, and alpha](https://ggplot2.tidyverse.org/reference/aes_colour_fill_alpha.html) for more information
 :::
-
 
 # Visualizing categorical variables
 
@@ -1166,7 +1113,6 @@ ggplot(data = yrbss_data,
   # angle the x-axis labels so that they are not overlapping
   theme(axis.text.x = element_text(angle = -45, hjust = 0))
 ```
-
 
 
 ## Barplots with proportions
@@ -1187,7 +1133,6 @@ ggplot(data = yrbss_data,
   # "dodge" the x-axis labels
   scale_x_discrete(guide = guide_axis(n.dodge = 2))
 ```
-
 
 
 ## Barplots with 2 variables: segmented bar plots
@@ -1224,7 +1169,6 @@ ggplot(data = yrbss_data,
 
 :::
 :::
-
 
 ## Side-by-side barplots
 
@@ -1263,8 +1207,7 @@ myplot
 :::
 
 ::: {.column width="50%"}
-Save the plot as a pdf
-(or "jpeg", "tiff", "png", etc.)
+Save the plot as a pdf (or "jpeg", "tiff", "png", etc.)
 
 
 ```{r}
@@ -1285,46 +1228,39 @@ See `ggsave` webpage for more details:
 
 ::: {style="font-size: 75%;"}
 <https://ggplot2.tidyverse.org/reference/ggsave.html>
-::: 
-
-
 :::
 :::
-
+:::
 
 ## \* More ggplot topics
 
-&nbsp;
+ 
 
 -   Change the [**theme**](https://ggplot2-book.org/themes) of the plot
     -   This includes the color scheme, text font and size, and other options.
     -   There are many existing themes to choose from.
 
-&nbsp;
+ 
 
 -   Arrange multiple plots as one
     -   [patchwork](https://patchwork.data-imaginist.com/) package
     -   Claus O. Wilke's [cowplot](https://wilkelab.org/cowplot/articles/index.html) package
     -   [Shared legend for all plots!](https://wilkelab.org/cowplot/articles/shared_legends.html)
 
-
-
 ## \* More ggplot workshop slides
 
-&nbsp;
+ 
 
 -   These slides are heavily adapted from R workshops
     -   presented together with Jessica Minnier, PhD
     -   sponsored by *OCTRI Biostatistics, Epidemiology, Research & Design (BERD)*:
 
-&nbsp;
+ 
 
 -   **Data Visualization with R and ggplot2** 2020/05/20
     -   html slides: [bit.ly/berd_ggplot](https://jminnier-berd-r-courses.netlify.app/04-ggplot/04_ggplot_slides.html)
     -   pdf slides: [bit.ly/berd_ggplot_pdf](https://jminnier-berd-r-courses.netlify.app/04-ggplot/04_ggplot_slides.pdf)
     -   [recording](https://echo360.org/media/34465dc2-ae46-4508-b5a7-b0fee860682e/public) of the presentation
-
-
 
 # Missing data summary & visualization
 
@@ -1340,7 +1276,6 @@ library(naniar)
 
 
 ![[Artwork by \@allison_horst](https://allisonhorst.com/r-packages-functions)](image/horst_naniar.png){fig-align="center"}
-
 
 ## Missingness statistics
 
@@ -1368,8 +1303,6 @@ miss_var_summary(yrbss_data) %>% gt()
 ```
 
 
-
-
 ## Visualizing missing data across dataset
 
 ::: columns
@@ -1377,7 +1310,6 @@ miss_var_summary(yrbss_data) %>% gt()
 -   This plot helps visualize whether
     -   there are variables with a lot of missing values and/or
     -   participants with a lot of missing values
-
 :::
 
 ::: {.column width="50%"}
@@ -1416,8 +1348,6 @@ gg_miss_upset(yrbss_data, nsets = 10)
 ```
 
 
-
-
 # Practice time! (part 3)
 
 1.  Create a histogram for the `stweight` variable. Describe the distribution shape.
@@ -1425,8 +1355,6 @@ gg_miss_upset(yrbss_data, nsets = 10)
 3.  Create boxplots of `stweight` stratified by sex.
 4.  Create a barplot of race4 categories with the y axis showing percentages.
 5.  Visualize the missing data across the YRBSS subset dataset we created `toy_data` using `vis_miss()`. What missingness patterns do you see?
-
-
 
 # Data wrangling
 
@@ -1452,7 +1380,6 @@ yrbss_data %>%
 yrbss_data %>% 
   arrange(desc(record))
 ```
-
 
 
 ## Sorting data frames by multiple variables
@@ -1492,7 +1419,6 @@ yrbss_data %>%
   count(age)
 ```
 
-
 :::
 
 ::: {.column width="4%"}
@@ -1508,7 +1434,6 @@ yrbss_data %>%
   count(age) %>%
   arrange(n)
 ```
-
 
 :::
 :::
@@ -1533,7 +1458,6 @@ yrbss_data
 ```
 
 
-
 # Subsetting data
 
 ![](image/datawrangle_cheatsheet_subset_rows.png){fig-align="center"}
@@ -1546,7 +1470,6 @@ yrbss_data
 
 ## `filter()`ing quantitative data
 
-
 ::: columns
 ::: {.column width="30%"}
 `filter()` is an extremely powerful function. It lets us **subset our data** according to specific criteria.
@@ -1554,11 +1477,9 @@ yrbss_data
 -   Let's filter on a `numeric` variable, `bmi`:
 
 ***Note the double equal signs!*** `==` is a *test* of whether two things are equal, it is not an assignment (i.e. `x = 5` assigns the value 5 to the object `x`).
-
 :::
 
 ::: {.column width="70%"}
-
 
 ```{r}
 yrbss_data %>%
@@ -1571,10 +1492,8 @@ yrbss_data %>%
   filter(bmi == 13.9229)
 ```
 
-
 :::
 :::
-
 
 ## `filter()`ing cateogrical data
 
@@ -1584,7 +1503,6 @@ yrbss_data %>%
 :::
 
 ::: {.column width="50%"}
-
 
 ```{r}
 yrbss_data %>% tabyl(grade)
@@ -1611,16 +1529,12 @@ yrbss_data %>%
 ```
 
 
-
-
-
-
 ## Filtering requires a little logic
 
 -   We can chain multiple criteria using the [`&` (AND)]{style="color:darkorange"} or [`|` (OR) operators]{style="color:darkorange"}.
     -   But we need to review a little logic before we do this.
 
-&nbsp;
+ 
 
 -   If we wanted to return participants who identified as
     -   `Female` **and** are in 10th grade,
@@ -1630,13 +1544,11 @@ yrbss_data %>%
 sex == "Female" & grade == "10th"
 ```
 
-&nbsp;
+ 
 
 -   Note that *SPELLING AND CASE MATTER*!
     -   You must write the name of the column exactly and
     -   also the value (i.e. "Female" not "female") exactly.
-
-
 
 ## Filtering with `&` (AND) criteria
 
@@ -1658,9 +1570,6 @@ yrbss_data %>%
          grade == "10th")
 
 ```
-
-
-
 
 
 ## Filtering with `|` (OR) criteria
@@ -1697,16 +1606,13 @@ Which of the AND vs. OR code blocks will return a larger number of participants?
 
 This is a useful reference for all the different operators (both logical and comparison) that you can use: <https://www.datamentor.io/r-programming/operator/>
 
-
-
-
 ## Filtering out missing values using `drop_na()` (1/2)
 
 -   We may want to remove rows that have missing data, which are coded as `NA`.
 
 -   See the [`drop_na()`](https://tidyr.tidyverse.org/reference/drop_na.html) reference for examples (`?drop_na`).
 
-&nbsp;
+ 
 
 -   First look at rates of missingness using the `naniar` package:
 
@@ -1742,8 +1648,6 @@ yrbss_data %>% drop_na(race7, bmi)
 ```{r}
 yrbss_data %>% drop_na()
 ```
-
-
 
 
 ## A warning about `filter()`: check for NA
@@ -1790,8 +1694,6 @@ yrbss_data %>%
 :::
 :::
 
-
-
 # Subset columns: `select()`ing data
 
 ![[data transformation cheatsheet](https://github.com/rstudio/cheatsheets/raw/master/data-transformation.pdf)](image/datawrangle_cheatsheet_subset_cols.png){fig-align="center"}
@@ -1817,7 +1719,6 @@ yrbss_data %>%
   select(-race4)
 
 ```
-
 
 
 ## `tidyselect`
@@ -1863,10 +1764,6 @@ yrbss_data %>% select(record, bmi, everything())
 
 
 -   Note there's also a function [`relocate()` to move around your column order](https://dplyr.tidyverse.org/reference/relocate.html).
-
-
-
-
 
 ## `tidyselect` mini-practice
 
@@ -1914,21 +1811,17 @@ tidyowl::learn_tidyselect()
 ```
 
 
-
-
 ## The difference between `filter()` and `select()`
 
-&nbsp;
+ 
 
 -   One thing to keep in mind is that:
     -   `filter()` works on [rows]{style="color:darkorange"} (think FILTER in Excel!), and
     -   `select()` works on [columns]{style="color:darkorange"} (select your relevant variables)
 
-&nbsp;
+ 
 
 Keep that in mind!
-
-
 
 ## Renaming with `rename()`
 
@@ -1946,11 +1839,9 @@ yrbss_data %>% rename(id = record,
 ```
 
 
-&nbsp;
+ 
 
 *Note that [we did not save the changes above]{style="color:darkorange"}, and thus we haven't actually renamed the variables in the dataset `yrbss_data`!*
-
-
 
 ## Saving our results as a file
 
@@ -1983,8 +1874,6 @@ write_xlsx(x = processed_data,
 ```
 
 
-
-
 # Practice time! (part 4)
 
 Perform some subsetting functions on the `yrbss_data` data:
@@ -2004,8 +1893,6 @@ Perform some subsetting functions on the `yrbss_data` data:
 
 
 ```
-
-
 
 
 # Make new variables: `mutate()`
@@ -2057,7 +1944,6 @@ Think of this like adding a formula in Excel to calculate the value of a new col
 -   change the capitalization of categories in a variable
 -   recode a continuous variable to be a categorical one
 
-
 ## Using `mutate` to calculate a new variable based on other variables (1/3)
 
 -   One use for `mutate` is to do Excel type calculations using other columns in the data.
@@ -2095,7 +1981,6 @@ glimpse(yrbss_new)
 ```
 
 
-
 ## Using `mutate` to calculate a new variable based on other variables (3/3)
 
 Figure examining the newly created variables using `mutate`:
@@ -2109,15 +1994,11 @@ ggplot(yrbss_new) +
 ```
 
 
-
-
-
-
 ## Brief aside: categorical data (`factor`s)
 
 -   One data type that we haven't yet looked at are `factor`s
 
-    -   [factors are how R represents **levels** of  *categorical data*]{style="color:darkorange"}.
+    -   [factors are how R represents **levels** of *categorical data*]{style="color:darkorange"}.
 
 -   For the most part, you can use `character` and `factors` interchangeably for categorical data.
 
@@ -2133,7 +2014,8 @@ class(character_vector)
 tabyl(character_vector)
 ```
 
-- The default order of levels is in **alphanumeric** order.
+
+-   The default order of levels is in **alphanumeric** order.
 -   You can make a character vector into a factor vector by using the `factor()` function, and supplying an argument called `levels`.
 
 ## **Levels** of a `factor` variable
@@ -2160,11 +2042,9 @@ levels(factor_vector)
 tabyl(factor_vector)
 ```
 
-
 :::
 
 ::: {.column width="50%"}
-
 
 ```{r}
 # specify our own ordering of levels
@@ -2176,7 +2056,6 @@ levels(factor_vector2)
 tabyl(factor_vector2)
 ```
 
-
 :::
 :::
 
@@ -2184,11 +2063,11 @@ Being able to specify the ordering is the main reason to use `factors`, at least
 
 ## Mini-practice
 
-&nbsp;
+ 
 
 -   Change the order of `factor_vector` to be "Mouse", "Cat", "Dog".
 
-&nbsp;
+ 
 
 -   Verify that you did it correctly by calling `tabyl()` or `levels()`
 
@@ -2204,8 +2083,6 @@ tabyl(factor_vector)
 levels(factor_vector)
 
 ```
-
-
 
 
 ## Using `mutate` to transform `character` variables into `factors`
@@ -2236,11 +2113,6 @@ yrbss_data %>%
     -   we are doing something called [*reassignment* in the grade example]{style="color:darkorange"}.
     -   We're taking the previous values of our variable (`grade`),
         -   doing something to it (making it a `factor`), and then reassigning the variable `grade` to our new set of values.
-
-
-
-
-
 
 ## `levels` of a `factor` variable revisited
 
@@ -2285,16 +2157,10 @@ yrbss_data %>%
 ```
 
 
-
-
 # Practice time! (part 5)
 
 1.  Create a new variable `height` that calculates height based on `bmi` and `weight_kg`. Note the formula for BMI is weight/height\^2 (weight is in kilograms and height is in meters). Create a scatterplot of `bmi` vs `height`.
 2.  Create a new factor variable `sex_fac` that orders the values of `sex` as Male, Female.
-
-
-
-
 
 # Make categorical variables with `case_when()`
 
@@ -2321,8 +2187,7 @@ First let's start with a simple binary 2 category variable.
         -   1 is the new value, and this is the right side of `~`
     -   `sex == "Male"` tests whether the column `sex` is Male, which is how we define the category 0
         -   0 is the new value, and this is the right side of `~`
-
-- Note how `NA` is handled here:
+-   Note how `NA` is handled here:
 
 
 ```{r}
@@ -2335,16 +2200,12 @@ yrbss_data %>%
 ```
 
 
-
-
-
-
 ## `case_when()` example 2
 
 -   In the example below, we are dichotomizing the continuous variable bmi into two categories
 -   We need to do this for each level in our category:
 
-[*left side* defines the condition *~* *right side* names the category]{style="color:darkorange"}
+[*left side* defines the condition *\~* *right side* names the category]{style="color:darkorange"}
 
 
 ```{r}
@@ -2391,9 +2252,6 @@ yrbss_data %>%
 2.  Create a new variable called `race_cat` that relabels `race4` to have shorter race category names: W (White), H/L (Hispanic/Latino), B/AA (Black or African American), Other (All other races). Make `race_cat` a factor variable with levels ordered by the size of the group in descending order.
 3.  Create a `tabyl` of the new variable `race_cat` and `race4` to check your work, including the ordering of the factors.
 
-
-
-
 # Try what we've learned with making figures using `ggplot2`
 
 ## Recall boxplots `geom_boxplot()`
@@ -2434,9 +2292,6 @@ ggplot(yrbss_data) +
 ```
 
 
-
-
-
 ## Factor levels when plotting
 
 -   Perhaps we want to **change the order of the `grade` levels** in our plot.
@@ -2456,13 +2311,7 @@ ggplot(yrbss_new) +
 ```
 
 
-
-
-
-
-
 ## Faceting our boxplot with `facet_wrap()`
-
 
 ::: columns
 ::: {.column width="35%"}
@@ -2470,12 +2319,9 @@ ggplot(yrbss_new) +
     -   We can make multiple plots stratifying by a categorical variable.
 -   To do this, we have to add the `facet_wrap()` command to our plot.
     -   We need to specify the variable to `facet_wrap` - `race4` by using the `vars()` function to specify it as a variable.
-
-
 :::
 
 ::: {.column width="65%"}
-
 
 ```{r}
 #| fig.height: 8
@@ -2488,7 +2334,6 @@ ggplot(yrbss_new) +
   geom_boxplot() +
   facet_wrap(vars(factor(race4)))  #NEW!
 ```
-
 
 :::
 :::
@@ -2503,11 +2348,9 @@ ggplot(yrbss_new) +
 ::: {.column width="35%"}
 -   Another way to facet our plots is with `facet_grid()`,
     -   which lets us select the rows and columns based on categorical variables:
-    
 :::
 
 ::: {.column width="65%"}
-
 
 ```{r}
 #| fig.height: 8
@@ -2522,10 +2365,8 @@ ggplot(yrbss_new) +
              cols = vars(race4))
 ```
 
-
 :::
 :::
-
 
 ## Mini-practice
 
@@ -2548,8 +2389,6 @@ ggplot(yrbss_new) +
 ```
 
 
-
-
 ## Back to `mutate`: using `mutate` to replace missing values with `replace_na`
 
 -   Sometimes we want to fill in missing values with a certain value.
@@ -2569,9 +2408,6 @@ yrbss_new %>%
 ```
 
 
-
-
-
 -   We can also fill in missing values for character vectors
     -   Here we replace missingness in the `grade` column with `unknown`:
 
@@ -2585,13 +2421,9 @@ yrbss_new %>%
 ```
 
 
-
 # Practice time! (part 7)
 
 1.  Create a barplot of `race4`, faceted by `sex`.
-
-
-
 
 # Useful keyboard shortcuts
 
@@ -2604,9 +2436,9 @@ yrbss_new %>%
 | interrupt currently running command | esc                | esc             |
 | keyboard shortcut help              | option + shift + k | alt + shift + k |
 
-&nbsp;
+ 
 
-__Practice:__ Try typing code below in your qmd (with shortcut) and evaluating it (with shortcut):
+**Practice:** Try typing code below in your qmd (with shortcut) and evaluating it (with shortcut):
 
 
 ```{r}
@@ -2614,8 +2446,6 @@ __Practice:__ Try typing code below in your qmd (with shortcut) and evaluating i
 y <- 5
 y
 ```
-
-
 
 
 # Conclusions
@@ -2626,16 +2456,13 @@ y
 
 From Garrett Grolemund's Prologue of his book *Hands-On Programming with R*[^1]:
 
-> As you learn to program, you are going to get frustrated. You are learning a new language, and it will take time to become fluent. But frustration is not just natural, it’s actually a positive sign that you should watch for. Frustration is your brain’s way of being lazy; it’s trying to get you to quit and go do something easy or fun. If you want to get physically fitter, you need to push your body even though it complains. If you want to get better at programming, you’ll need to push your brain. Recognize when you get frustrated and see it as a good thing: you’re now stretching yourself. Push yourself a little further every day, and you’ll soon be a confident programmer.
-
-
 [^1]: Grolemund, Garrett. 2014. Hands-on Programming with R. O’Reilly. <https://rstudio-education.github.io/hopr/>
 
+> As you learn to program, you are going to get frustrated. You are learning a new language, and it will take time to become fluent. But frustration is not just natural, it’s actually a positive sign that you should watch for. Frustration is your brain’s way of being lazy; it’s trying to get you to quit and go do something easy or fun. If you want to get physically fitter, you need to push your body even though it complains. If you want to get better at programming, you’ll need to push your brain. Recognize when you get frustrated and see it as a good thing: you’re now stretching yourself. Push yourself a little further every day, and you’ll soon be a confident programmer.
 
 ## Where are you in your R learning timeline?
 
 ![[Artwork by \@allison_horst](https://allisonhorst.com/everything-else)](image/horst_timeline_Rlearning.png){fig-align="center"}
-
 
 # Resources
 
@@ -2650,8 +2477,8 @@ From Garrett Grolemund's Prologue of his book *Hands-On Programming with R*[^1]:
     -   slides: [bit.ly/berd_intro_part2](http://bit.ly/berd_intro_part2)
     -   pdf: [bit.ly/berd_intro_part2_pdf](http://bit.ly/berd_intro_part2_pdf) - [recording of the presentation](https://echo360.org/media/04d4ec82-35a6-43b2-8463-2db51f936c6d/public)
 -   **Reproducible Reports with R Markdown** 2019/09/25
-    -   slides: [bit.ly/berd_rmd_2019](http://bit.ly/berd_rmd_2019)
-    -   pdf: [bit.ly/berd_rmd_pdf_2019](http://bit.ly/berd_rmd_pdf_2019) - [recording of the presentation](https://echo360.org/media/b082e803-0677-445f-9688-f96b9c36dc93/public)
+    -   slides: [bit.ly/berd_rmd](http://bit.ly/berd_rmd)
+    -   pdf: [bit.ly/berd_rmd_pdf](http://bit.ly/berd_rmd_pdf) - [recording of the presentation](https://echo360.org/media/b082e803-0677-445f-9688-f96b9c36dc93/public)
     -   Note: most of this applies to Quarto as well, but there are some differences between Quarto and R Markdown.
 
 ## Quarto Resources
