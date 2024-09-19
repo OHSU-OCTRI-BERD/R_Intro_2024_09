@@ -45,7 +45,7 @@ editor_options:
 
     -   These files are hosted on github: <https://github.com/OHSU-OCTRI-BERD/R_Intro_2024_09>
 
-3.  Slides are here: <https://bit.ly/berd-r-intro2024-slides> or you can open the slides file (html) in a web browser: `slides_R_berd_2024.html`
+3.  Slides are here: <https://bit.ly/berd_intro_2024_slides> or you can open the slides file (html) in a web browser: `slides_R_berd_2024.html`
 
 4.  [Open RStudio by double-clicking on the file]{style="color:darkorange"} `berd_r_intro_2024_09.Rproj`
 
