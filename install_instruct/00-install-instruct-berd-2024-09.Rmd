@@ -1,0 +1,84 @@
+---
+title: "BERD Intro to R 2024 Workshop"
+author: "Pre-workshop Installation Instructions"
+date: "Updated: `r Sys.Date()`"
+output: 
+  html_document: 
+    theme: spacelab
+    toc: yes
+    toc_float: yes
+    number_sections: no
+  pdf_document: default
+urlcolor: blue
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+[link to this page https://bit.ly/berd_install_2024_09](https://bit.ly/berd_install_2024_09)
+
+# Install R and Rstudio on your own computer
+
+## Pre-course installation
+
+- R and Rstudio are two separate programs. You must install R first. Then install Rstudio desktop. 
+- For help, try [watching this video](https://www.youtube.com/watch?v=3f8TMPOZTLE)
+- Even if you have R installed already, we highly recommend installing the latest version (4.4.1) if it has been a while since you installed it. Just follow the instructions as below to update everything.
+- **YOU NEED TO DO THIS YOURSELF BEFORE THE WORKSHOP** The workshop will begin assuming you have R/Rstudio set up. There will be an installation help session the 30 minutes before the first day of the workshop begins if you have tried it on your own and have trouble.
+- __If you do not install R and RStudio before the workshop__, we highly recommend creating a [free Posit Cloud account](https://login.posit.cloud/login) to use RStudio online for the workshop. This is also a good option if you are using a laptop where you cannot install your own software.
+
+
+## Install R and Rstudio on your computer
+
+### Step 1: Install **R**
+
+- Windows: Download from https://cran.rstudio.com/bin/windows/base/ from the link "Download R 4.4.1. for Windows"
+- Mac OS X: Download the latest .pkg file (top link, currently R-4.4.1.pkg) from https://cran.rstudio.com/bin/macosx/
+    * For some packages and uses, [Xcode](https://apps.apple.com/us/app/xcode/id497799835?mt=12) and [XQuartz](https://www.xquartz.org/) may be required, but no need to install these until you find you need them (Xcode takes a very long time to install). They will not be needed for the workshop.
+    
+### Step 2: Install **RStudio Desktop** Open Source License
+
+- Go to https://posit.co/download/rstudio-desktop/#download
+- Click the blue box which contains the download file corresponding to your operating system, it should say something like "DOWNLOAD RSTUDIO DESKTOP FOR MACOS 12+" (or windows)
+- Follow download instructions on your computer
+
+<!-- <a href="https://posit.co/download/rstudio-desktop/#download"><img src="img/install_rstudio.png" width="40%" height="40%"></a> -->
+
+### Step 3: Open Rstudio
+
+After installation, open Rstudio by clicking on the Rstudio icon, a round blue ball with R in it, that should look something like this:
+
+![](img/rstudiologo.png)
+
+Do not open the regular R software, it is just working in the background when you use Rstudio.
+
+
+
+# Prepare for the course
+
+## *Highly recommended*
+
+- Get acquainted with Rstudio Desktop (and R) prior to the workshop. You will get much more out of the workshop if you have opened the software and explored the interface first.
+
+## *Recommended*
+
+- Try out the [Basics](https://posit.cloud/learn/recipes) interactive lessons from Rstudio.
+- Look over [slides from a previous version of this workshop](https://jminnier-berd-r-courses.netlify.app/01-getting-started-v2/01_getting_started_slides.html)
+
+
+
+# Instructor Info
+
+[Jessica Minnier, PhD](http://jessicaminnier.com/) & [Meike Niederhausen, PhD](https://ohsu-psu-sph.org/our-school/faculty-directory/name/meike-niederhausen/), 
+Oregon Health & Science University
+
+Slides and code for BERD workshop materials: [jminnier/berd_r_courses](https://github.com/jminnier/berd_r_courses)
+
+
+```{r, eval=FALSE, echo=FALSE}
+# after knitting, copy to folder that goes to github, links to bitly
+file.copy("00-install-instruct-berd-2024-09.html", "/Users/minnier/Dropbox (Personal)/Work/repos/talks_etc/", 
+          overwrite = TRUE)
+```
+
